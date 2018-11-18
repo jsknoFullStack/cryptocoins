@@ -14,15 +14,13 @@ package com.jskno.cryptocoinsbe.domain;
 import com.jskno.cryptocoinsbe.domain.enums.TransactionType;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
 import java.util.Date;
 
 @Entity
 @Table(name = "cryptocurrency_transaction")
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
 public class CryptoCurrencyTransaction {
 
     @Id
@@ -30,32 +28,40 @@ public class CryptoCurrencyTransaction {
     private Long id;
 
     @Column(name = "transaction_type")
+    @NotNull(message = "The transacion type is required")
     private TransactionType transactionType;
 
     @ManyToOne
     @JoinColumn(name = "cryptocurrency_id")
+    @NotNull(message = "Every Transaction must be associated to a CryptoCurrency")
     private CryptoCurrency cryptoCurrency;
 
     @Column(name = "units")
+    @Positive(message = "Units must be positive number")
     private Double units;
 
     @ManyToOne
     @JoinColumn(name = "transaction_currency_id")
+    @NotNull(message = "Currency though which the CrypoCurrency was paid must be informed")
     private Currency transactionCurrency;
 
     @Column(name = "transaction_price")
+    @Positive
     private Double transactionPrice;
 
     // How many euros worth a unit of purchaseCurrency
     @Column(name = "euros_transaction_currency_rate")
+    @Positive
     private Double eurosTransactionCurrencyRate;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "transaction_date")
+    @PastOrPresent(message = "None transaction can take place in the future")
     private Date transactionDate;
 
     @ManyToOne
     @JoinColumn(name = "exchangeWebId")
+    @NotNull(message = "The ExchangeWeb is required")
     private ExchangeWeb exchangeWeb;
 
     public CryptoCurrencyTransaction() {

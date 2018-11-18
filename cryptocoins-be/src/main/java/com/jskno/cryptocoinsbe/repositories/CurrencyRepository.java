@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CurrencyRepository extends CrudRepository<Currency, Long> {
+
+    public Currency findCurrencyByTickerSymbol(String tickerSymbol);
 }

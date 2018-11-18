@@ -12,13 +12,16 @@
 package com.jskno.cryptocoinsbe.domain;
 
 import com.jskno.cryptocoinsbe.domain.base.AbstractEntity;
+import com.jskno.cryptocoinsbe.domain.constraints.ExchangeWebConstraint;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 /**
  * Created by Jose on 03/02/18.
  */
 @Entity
+@ExchangeWebConstraint
 public class ExchangeWeb extends AbstractEntity {
 
     @Id
@@ -26,9 +29,11 @@ public class ExchangeWeb extends AbstractEntity {
     private Long id;
 
     @Column(name = "name")
+    @NotBlank(message = "The ExchangeWeb name is required")
     private String name;
 
     @Column(name = "url")
+    @NotBlank(message = "The ExchangeWeb url is required")
     private String url;
 
     public ExchangeWeb() {

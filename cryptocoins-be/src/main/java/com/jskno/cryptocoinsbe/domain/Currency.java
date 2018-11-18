@@ -14,6 +14,10 @@ package com.jskno.cryptocoinsbe.domain;
 import com.jskno.cryptocoinsbe.domain.base.AbstractEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -27,9 +31,12 @@ public abstract class Currency extends AbstractEntity {
     private Long id;
 
     @Column
+    @NotEmpty(message = "The name is required")
     private String name;
 
-    @Column
+    @Column(unique = true)
+    @NotBlank(message = "The ticker symbol is required")
+    @Size(min = 3, max = 8, message = "The ticker symbol must be between 3 and 8 characters")
     private String tickerSymbol;
 
     public Currency() {
