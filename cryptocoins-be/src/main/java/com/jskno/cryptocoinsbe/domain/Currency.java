@@ -22,7 +22,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = Currency.CURRENCY_TYPE)
-public abstract class Currency extends AbstractEntity {
+public class Currency extends AbstractEntity {
 
     protected final static String CURRENCY_TYPE = "currency_type";
 
